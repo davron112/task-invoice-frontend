@@ -37,7 +37,7 @@
           <td>{{ item.status }}</td>
           <td>{{ item.amount }}</td>
           <td>{{ item.fullName }}</td>
-          <td><v-btn @click="pay(item.id)">PAY</v-btn></td>
+          <td><v-btn :disabled="item.status === 'PAYED'" @click="pay(item.id)">PAY</v-btn></td>
         </tr>
         </tbody>
       </template>
