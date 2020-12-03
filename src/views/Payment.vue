@@ -32,11 +32,11 @@
             v-for="(item, index) in payments"
             :key="index"
         >
-          <td>{{ item.schoolName }}</td>
+          <td>{{ item.school_name }}</td>
           <td>{{ item.description }}</td>
           <td>{{ item.status }}</td>
           <td>{{ item.amount }}</td>
-          <td>{{ item.fullName }}</td>
+          <td>{{ item.full_name }}</td>
           <td><v-btn :disabled="item.status === 'PAYED'" @click="pay(item.id)">PAY</v-btn></td>
         </tr>
         </tbody>
