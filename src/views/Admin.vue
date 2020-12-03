@@ -15,6 +15,9 @@
             Description
           </th>
           <th class="text-left">
+            Amount
+          </th>
+          <th class="text-left">
             Payment status
           </th>
           <th class="text-left">
