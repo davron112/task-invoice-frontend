@@ -107,6 +107,11 @@ export default {
       this.createInvoice(this.form)
       this.dialog = this.getActivePopup;
       this.fetchInvoiceItems()
+      
+      this.form.description =  ''
+      this.form.amount = 0
+      this.form.school_name = ''
+      this.form.user_id = ''
     }
   },
   watch: {

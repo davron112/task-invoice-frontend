@@ -114,6 +114,8 @@ export default {
       this.addPay(this.form)
       this.dialog = false
       this.fetchPayments()
+      this.form.id = '';
+      this.form.full_name = ''
     }
   }
 }
