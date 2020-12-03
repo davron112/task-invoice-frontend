@@ -1,26 +1,25 @@
-import client from 'api-client'
 import axios from 'axios'
 
 export default {
-  fetchItems ({commit}) {
+  fetchInvoiceItems ({commit}) {
         axios
         .get('https://taskapi.achilov.dev/invoices')
         .then(response => {
           const { data } = response
-          commit('setItems', data)
+          commit('setInvoiceItems', data)
         })
   },
   createInvoice ({commit}, payload) {
         axios
         .post('https://taskapi.achilov.dev/invoices/create', payload)
         .then(response => {
-          commit('setItems', response.data)
+            commit('setInvoiceItems', response.data)
+            commit('changeStatusPopup', true)
         })
   },
   fetchPayments ({commit}) {
-    return client
-      .fetchItems()
-      .then(items => commit('setInvoiceItems', items))
+      axios
+      .then(items => commit('setPayments', items))
   }
 }
 

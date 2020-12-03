@@ -7,8 +7,8 @@ export default {
     { text: 'Invoice link', value: 'link' },
     { text: 'Payer name', value: 'payer' },
   ],
-  items: [],
+  payments: [],
+  activePopup: false,
   invoices: [
-    { id: 1, schoolName: 'School Name', description: 'name', amount: '111', fullName: '111'},
   ],
 }

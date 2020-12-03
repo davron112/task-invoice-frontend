@@ -42,17 +42,21 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
   name: 'User',
   computed: {
     ...mapGetters([
-      'invoices'
+      'payments'
     ])
   },
+  created() {
+    this.fetchPayments()
+  },
   methods: {
-    pay(id) {
+    ...mapActions(['fetchPayments']),
+    pay() {
       //
     }
   }

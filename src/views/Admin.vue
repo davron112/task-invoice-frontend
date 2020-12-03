@@ -3,45 +3,45 @@
       class="mx-auto mt-10"
       max-width="800"
   >
-    <invoice-form :dialog="dialog"/>
+    <invoice-form/>
     <v-data-table
         :headers="headers"
-        :items="items"
+        :items="invoices"
     >
     </v-data-table>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import InvoiceForm from "@/views/InvoiceForm";
 
 export default {
   name: 'Admin',
-  components: {InvoiceForm},
+  components: {
+    InvoiceForm
+  },
   data() {
     return {
-      id: null,
-      dialog: false
+      id: null
     }
   },
   computed: {
     ...mapGetters([
       'headers',
-      'items'
+      'invoices'
     ])
   },
   mounted() {
+    this.fetchInvoiceItems();
     this.getId();
   },
   methods: {
+    ...mapActions(['fetchInvoiceItems']),
     getId() {
       if (this.$route.params.id) {
         this.id = this.$route.params.id;
       }
-    },
-    popupPayment() {
-      this.dialog = true
     }
   }
 }

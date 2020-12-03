@@ -1,6 +1,5 @@
 <template>
   <v-navigation-drawer
-    :value="drawer"
     app
     clipped
   >
@@ -28,12 +27,8 @@
   </v-navigation-drawer>
 </template>
 <script>
-import { mapGetters } from 'vuex';
 
 export default {
-  name: 'navigation-drawer',
-  computed: {
-    ...mapGetters(['drawer'])
-  }
+  name: 'navigation-drawer'
 }
 </script>

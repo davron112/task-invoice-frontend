@@ -1,5 +1,6 @@
 export default {
   headers: state => state.headers,
-  items: state => state.items,
+  payments: state => state.payments,
   invoices: state => state.invoices,
+  getActivePopup: state => state.activePopup,
 }

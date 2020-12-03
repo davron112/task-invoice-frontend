@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="right">
+  <v-row>
     <v-dialog
         v-model="dialog"
         persistent
@@ -88,6 +88,7 @@ export default {
   name: "InvoiceForm",
   data() {
     return {
+      dialog: false,
       form: {
         description: '',
         amount: 0,
@@ -95,16 +96,14 @@ export default {
       }
     }
   },
-  props: {
-    dialog: {
-      type: Boolean,
-      default:false
-    }
+  computed: {
+    ...mapGetters(['getActivePopup'])
   },
   methods: {
-    ...mapActions(''),
+    ...mapActions(['createInvoice']),
     formSubmit() {
-
+      this.createInvoice(this.form)
+      this.dialog = this.getActivePopup;
     }
   }
 }

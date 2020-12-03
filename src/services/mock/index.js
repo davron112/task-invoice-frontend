@@ -9,7 +9,7 @@ const fetch = (mockData, time = 0) => {
 }
 
 export default {
-  fetchItems () {
+  fetchInvoiceItems () {
     return fetch(items, 1000) // wait 1s before returning items
   }
 }
