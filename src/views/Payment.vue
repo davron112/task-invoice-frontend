@@ -113,6 +113,7 @@ export default {
     postPay() {
       this.addPay(this.form)
       this.dialog = false
+      this.fetchPayments()
     }
   }
 }

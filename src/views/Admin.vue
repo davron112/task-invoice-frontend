@@ -1,7 +1,7 @@
 <template>
   <v-card
       class="mx-auto mt-10"
-      max-width="800"
+      max-width="1200"
   >
     <invoice-form/>
     <v-simple-table>
