@@ -14,6 +14,9 @@
             Description
           </th>
           <th class="text-left">
+            Status
+          </th>
+          <th class="text-left">
             Amount
           </th>
           <th class="text-left">
@@ -31,6 +34,7 @@
         >
           <td>{{ item.schoolName }}</td>
           <td>{{ item.description }}</td>
+          <td>{{ item.status }}</td>
           <td>{{ item.amount }}</td>
           <td>{{ item.fullName }}</td>
           <td><v-btn @click="pay(item.id)">PAY</v-btn></td>
