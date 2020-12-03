@@ -3,6 +3,7 @@
       class="mx-auto mt-10"
       max-width="800"
   >
+    <invoice-form :dialog="dialog" :userId="userId" />
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -35,6 +36,7 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex';
+import InvoiceForm from "@/views/InvoiceForm";
 
 export default {
   name: 'User',
@@ -43,13 +45,23 @@ export default {
       'getUsers'
     ])
   },
+  data() {
+    return {
+      userId: '',
+      dialog: false
+    }
+  },
+  components: {
+    InvoiceForm
+  },
   created() {
     this.fetchUsers()
   },
   methods: {
     ...mapActions(['fetchUsers']),
     createInvoice(id) {
-      this.$router.push({path: '/admin', query: { userId: id }})
+      this.userId = id;
+      this.dialog = true;
     }
   }
 }

@@ -3,7 +3,6 @@
       class="mx-auto mt-10"
       max-width="1200"
   >
-    <invoice-form/>
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -56,13 +55,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import InvoiceForm from "@/views/InvoiceForm";
 
 export default {
   name: 'Admin',
-  components: {
-    InvoiceForm
-  },
   data() {
     return {
       id: null

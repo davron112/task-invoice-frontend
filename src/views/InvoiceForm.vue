@@ -90,29 +90,32 @@ export default {
     dialog: {
       type: Boolean,
       default: false
+    },
+    userId: {
+      type: [String, Number],
+      default: ''
     }
   },
   created() {
-    if (this.$route.query.userId) {
-      this.dialog = true
-      this.form.user_id = this.$route.query.userId
-    }
+    this.form.user_id = this.userId
   },
   computed: {
     ...mapGetters(['getActivePopup'])
   },
   methods: {
-    ...mapActions(['createInvoice']),
+    ...mapActions(['createInvoice', 'fetchInvoiceItems', 'fetchPayments']),
     formSubmit() {
       this.createInvoice(this.form)
+      this.fetchPayments()
       this.dialog = this.getActivePopup;
-      this.fetchInvoiceItems()
       this.$router.push('/payment')
     }
   },
   watch: {
-    getActivePopup(value) {
-      this.dialog = value
+    userId(value) {
+      if (value) {
+        this.form.user_id = this.userId
+      }
     }
   }
 }
