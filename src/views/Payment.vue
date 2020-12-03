@@ -118,6 +118,7 @@ export default {
       this.addPay(this.form)
       this.dialog = false
       this.fetchPayments()
+      location.reload()
     }
   }
 }
