@@ -4,11 +4,50 @@
       max-width="800"
   >
     <invoice-form/>
-    <v-data-table
-        :headers="headers"
-        :items="invoices"
-    >
-    </v-data-table>
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+        <tr>
+          <th class="text-left">
+            School Name
+          </th>
+          <th class="text-left">
+            Description
+          </th>
+          <th class="text-left">
+            Payment status
+          </th>
+          <th class="text-left">
+            Invoice link
+          </th>
+          <th class="text-left">
+            Payer name
+          </th>
+          <th class="text-left">
+            Actions
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr
+            v-for="(item, index) in invoices"
+            :key="index"
+        >
+          <td>{{ item.school_name }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.amount }}</td>
+          <td>{{ item.status }}</td>
+          <td>{{ item.link }}</td>
+          <td>{{ item.full_name }}</td>
+          <td>
+            <button v-clipboard="item.link">
+                  Copy to clipboard
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
   </v-card>
 </template>
 

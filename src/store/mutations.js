@@ -7,5 +7,8 @@ export default {
   },
   setInvoiceItems (state, items) {
     state.invoices = items
+  },
+  setUserItems (state, items) {
+    state.users = items
   }
 }

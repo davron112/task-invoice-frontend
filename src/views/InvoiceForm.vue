@@ -3,18 +3,8 @@
     <v-dialog
         v-model="dialog"
         persistent
-        max-width="600px"
+        max-width="700px"
     >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-            color="primary"
-            dark
-            v-bind="attrs"
-            v-on="on"
-        >
-          Add invoice
-        </v-btn>
-      </template>
       <v-card>
         <v-card-title>
           <span class="headline">Create a new invoice</span>
@@ -88,12 +78,24 @@ export default {
   name: "InvoiceForm",
   data() {
     return {
-      dialog: false,
       form: {
         description: '',
         amount: 0,
         school_name: '',
+        user_id: '',
       }
+    }
+  },
+  props: {
+    dialog: {
+      type: Boolean,
+      default: false
+    }
+  },
+  created() {
+    if (this.$route.query.userId) {
+      this.dialog = true
+      this.form.user_id = this.$route.query.userId
     }
   },
   computed: {
@@ -104,6 +106,12 @@ export default {
     formSubmit() {
       this.createInvoice(this.form)
       this.dialog = this.getActivePopup;
+      this.fetchInvoiceItems()
+    }
+  },
+  watch: {
+    getActivePopup(value) {
+      this.dialog = value
     }
   }
 }

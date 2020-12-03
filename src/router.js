@@ -13,9 +13,19 @@ export default new Router({
       component: () => import('./views/Home.vue')
     },
     {
+      path: '/invoices/:id',
+      name: 'home',
+      component: () => import('./views/InvoiceDetail.vue')
+    },
+    {
       path: '/user',
       name: 'user',
       component: () => import('./views/User.vue')
+    },
+    {
+      path: '/payment',
+      name: 'payment',
+      component: () => import('./views/Payment.vue')
     },
     {
       path: '/admin',

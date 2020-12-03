@@ -8,7 +8,13 @@
         <thead>
         <tr>
           <th class="text-left">
-            ID
+            School Name
+          </th>
+          <th class="text-left">
+            Description
+          </th>
+          <th class="text-left">
+            Amount
           </th>
           <th class="text-left">
             Full Name
@@ -20,12 +26,14 @@
         </thead>
         <tbody>
         <tr
-            v-for="(item, index) in getUsers"
+            v-for="(item, index) in invoices"
             :key="index"
         >
-          <td>{{ item.id }}</td>
-          <td>{{ item.full_name }}</td>
-          <td><v-btn @click="createInvoice(item.id)">Create Invoice</v-btn></td>
+          <td>{{ item.schoolName }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.amount }}</td>
+          <td>{{ item.fullName }}</td>
+          <td><v-btn @click="pay(item.id)">PAY</v-btn></td>
         </tr>
         </tbody>
       </template>
@@ -38,18 +46,23 @@ import {mapActions, mapGetters} from 'vuex';
 
 export default {
   name: 'User',
+  data() {
+    return {
+      dialog: false
+    }
+  },
   computed: {
     ...mapGetters([
-      'getUsers'
+      'payments'
     ])
   },
   created() {
-    this.fetchUsers()
+    this.fetchPayments()
   },
   methods: {
-    ...mapActions(['fetchUsers']),
-    createInvoice(id) {
-      this.$router.push({path: '/admin', query: { userId: id }})
+    ...mapActions(['fetchPayments']),
+    pay() {
+      //
     }
   }
 }
