@@ -1,6 +1,6 @@
 <template>
   <v-row>
-      <div v-if="form.status === 'PAYED'">
+      <div v-if="form.status === 'PAID'">
         This invoice has already been paid
       </div>
       <v-card v-else v-show="!payed">
