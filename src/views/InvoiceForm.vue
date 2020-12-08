@@ -114,6 +114,7 @@ export default {
       await this.createInvoice(this.form)
       await  this.fetchInvoiceItems()
       this.dialog = false;
+      alert('Invoice created and sent by mail')
       await this.$router.push('/')
     }
   }
