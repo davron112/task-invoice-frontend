@@ -109,12 +109,12 @@ export default {
     ...mapGetters(['getActivePopup'])
   },
   methods: {
-    ...mapActions(['createInvoice', 'fetchInvoiceItems', 'fetchPayments']),
-    formSubmit() {
-      this.createInvoice(this.form)
-      this.fetchPayments()
-      this.dialog = this.getActivePopup;
-      this.$router.push('/payment')
+    ...mapActions(['createInvoice', 'fetchInvoiceItems']),
+    async formSubmit() {
+      await this.createInvoice(this.form)
+      await  this.fetchInvoiceItems()
+      this.dialog = false;
+      await this.$router.push('/')
     }
   }
 }
