@@ -1,5 +1,6 @@
 <template>
   <v-row>
+
     <v-dialog
         v-model="dialog"
         persistent
@@ -46,6 +47,18 @@
                     v-model="form.amount"
                 ></v-text-field>
               </v-col>
+              <v-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+              >
+                <v-text-field
+                    label="Email*"
+                    persistent-hint
+                    required
+                    v-model="form.email"
+                ></v-text-field>
+              </v-col>
             </v-row>
           </v-container>
           <small>*indicates required field</small>
@@ -82,7 +95,7 @@ export default {
         description: '',
         amount: 0,
         school_name: '',
-        user_id: '',
+        email: '',
       }
     }
   },
@@ -90,14 +103,7 @@ export default {
     dialog: {
       type: Boolean,
       default: false
-    },
-    userId: {
-      type: [String, Number],
-      default: ''
     }
-  },
-  created() {
-    this.form.user_id = this.userId
   },
   computed: {
     ...mapGetters(['getActivePopup'])
@@ -109,13 +115,6 @@ export default {
       this.fetchPayments()
       this.dialog = this.getActivePopup;
       this.$router.push('/payment')
-    }
-  },
-  watch: {
-    userId(value) {
-      if (value) {
-        this.form.user_id = this.userId
-      }
     }
   }
 }

@@ -10,22 +10,12 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import('./views/User.vue')
+      component: () => import('./views/Admin.vue')
     },
     {
-      path: '/invoices/:id',
+      path: '/invoice/:link',
       name: 'home',
-      component: () => import('./views/InvoiceDetail.vue')
-    },
-    {
-      path: '/user',
-      name: 'user',
       component: () => import('./views/User.vue')
-    },
-    {
-      path: '/payment',
-      name: 'payment',
-      component: () => import('./views/Payment.vue')
     },
     {
       path: '/admin',

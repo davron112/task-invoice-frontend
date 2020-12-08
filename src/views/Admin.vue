@@ -1,66 +1,40 @@
 <template>
-  <v-card
-      class="mx-auto mt-10"
-      max-width="1200"
-  >
-    <v-simple-table>
-      <template v-slot:default>
-        <thead>
-        <tr>
-          <th class="text-left">
-            School Name
-          </th>
-          <th class="text-left">
-            Description
-          </th>
-          <th class="text-left">
-            Amount
-          </th>
-          <th class="text-left">
-            Payment status
-          </th>
-          <th class="text-left">
-            Invoice link
-          </th>
-          <th class="text-left">
-            Payer name
-          </th>
-          <th class="text-left">
-            Actions
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr
-            v-for="(item, index) in invoices"
-            :key="index"
+  <v-container class="grey lighten-5">
+    <v-row no-gutters>
+      <v-btn color="success" class="mb-5" @click="dialog = true">Add invoice</v-btn>
+      <invoice-form :dialog="dialog"/>
+      <v-col class="mb-5" cols="12" lg="12" sm="1" md="12" v-for="(item, index) in invoices"
+             :key="index">
+        <v-card
+            class="pa-2"
         >
-          <td>{{ item.school_name }}</td>
-          <td>{{ item.description }}</td>
-          <td>{{ item.amount }}</td>
-          <td>{{ item.status }}</td>
-          <td>{{ item.link }}</td>
-          <td>{{ item.full_name }}</td>
-          <td>
-            <button v-clipboard="item.link">
-                  Copy to clipboard
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
-  </v-card>
+          <div><b>School Name</b>: {{ item.school_name }}</div>
+          <div><b>Description</b>: {{ item.description }}</div>
+          <div><b>Amount</b>: {{ item.amount }}</div>
+          <div><b>Payment status</b>: <v-badge :color="item.status === 'PAID' ? 'success': 'info'" :content="item.status"></v-badge></div>
+          <div><b>Invoice link</b>: {{ item.link }}</div>
+          <div><b>Payer name</b>: {{ item.full_name }}</div>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import InvoiceForm from "@/views/InvoiceForm";
+import axios from "axios";
 
 export default {
   name: 'Admin',
   data() {
     return {
-      id: null
+      id: null,
+      form: {
+        invoice_id: '',
+        email: ''
+      },
+      dialog: false
     }
   },
   computed: {
@@ -73,8 +47,12 @@ export default {
     this.fetchInvoiceItems();
     this.getId();
   },
+  components: {
+    InvoiceForm
+  },
   methods: {
     ...mapActions(['fetchInvoiceItems']),
+
     getId() {
       if (this.$route.params.id) {
         this.id = this.$route.params.id;

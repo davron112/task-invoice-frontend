@@ -14,9 +14,6 @@
             Description
           </th>
           <th class="text-left">
-            Status
-          </th>
-          <th class="text-left">
             Amount
           </th>
           <th class="text-left">
@@ -34,7 +31,6 @@
         >
           <td>{{ item.school_name }}</td>
           <td>{{ item.description }}</td>
-          <td>{{ item.status }}</td>
           <td>{{ item.amount }}</td>
           <td>{{ item.full_name }}</td>
           <td><v-btn :disabled="item.status === 'PAYED'" @click="pay(item.id)">PAY</v-btn></td>

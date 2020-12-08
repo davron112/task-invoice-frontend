@@ -17,6 +17,13 @@ export default {
             commit('changeStatusPopup', false)
         })
   },
+  async loadInvoice ({commit}, link) {
+     await axios
+        .post(`https://taskapi.achilov.dev/api/invoices/link/${link}`)
+        .then(response => {
+            commit('activeInvoice', response.data)
+        })
+  },
   async addPay ({commit}, payload) {
      await axios
         .post('https://taskapi.achilov.dev/api/payments/create', payload)

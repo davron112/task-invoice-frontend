@@ -1,68 +1,130 @@
 <template>
-  <v-card
-      class="mx-auto mt-10"
-      max-width="800"
-  >
-    <invoice-form :dialog="dialog" :userId="userId" />
-    <v-simple-table>
-      <template v-slot:default>
-        <thead>
-        <tr>
-          <th class="text-left">
-            ID
-          </th>
-          <th class="text-left">
-            Full Name
-          </th>
-          <th class="text-left">
-            Actions
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr
-            v-for="(item, index) in getUsers"
-            :key="index"
-        >
-          <td>{{ item.id }}</td>
-          <td>{{ item.full_name }}</td>
-          <td><v-btn @click="createInvoice(item.id)">Create Invoice</v-btn></td>
-        </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
-  </v-card>
+  <v-row>
+      <v-card v-show="!payed">
+        <v-card-title>
+          <span class="headline">Pay to invoice</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+              >
+                <v-text-field
+                    label="School name*"
+                    required
+                    disabled
+                    v-model="form.school_name"
+                ></v-text-field>
+              </v-col>
+              <v-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+              >
+                <v-textarea
+                    label="Description*"
+                    disabled
+                    v-model="form.description"
+                    required
+                ></v-textarea>
+              </v-col>
+              <v-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+              >
+                <v-text-field
+                    label="Amount*"
+                    persistent-hint
+                    required
+                    disabled
+                    v-model="form.amount"
+                ></v-text-field>
+              </v-col>
+              <v-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+              >
+                <v-text-field
+                    label="Full Name*"
+                    persistent-hint
+                    required
+                    v-model="form.full_name"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+              color="blue darken-1"
+              text
+              @click="formSubmit"
+          >
+            Pay
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+  </v-row>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex';
-import InvoiceForm from "@/views/InvoiceForm";
-
+import { mapActions, mapGetters } from 'vuex'
+import axios from "axios";
 export default {
-  name: 'User',
-  computed: {
-    ...mapGetters([
-      'getUsers'
-    ])
-  },
+  name: "InvoiceForm",
   data() {
     return {
-      userId: '',
-      dialog: false
+      payed: false,
+      form: {
+        invoice_id: '',
+        school_name: '',
+        description: '',
+        amount: 0,
+        full_name: '',
+      }
     }
   },
-  components: {
-    InvoiceForm
+  props: {
+    dialog: {
+      type: Boolean,
+      default: false
+    }
   },
-  created() {
-    this.fetchUsers()
+  computed: {
+    ...mapGetters(['getActivePopup', 'getActiveInvoice'])
   },
   methods: {
-    ...mapActions(['fetchUsers']),
-    createInvoice(id) {
-      this.userId = id;
-      this.dialog = true;
+    ...mapActions(['createInvoice', 'loadInvoice']),
+    async formSubmit () {
+      await axios
+          .post('https://taskapi.achilov.dev/api/payments/create', this.form)
+          .then(response => {
+            this.payed = true
+            alert(response.data.status)
+          })
+    }
+  },
+  created() {
+    if (this.$route.params && this.$route.params.link) {
+      this.loadInvoice(this.$route.params.link)
+    }
+  },
+  watch: {
+    getActiveInvoice(value) {
+      this.form = value
     }
   }
 }
 </script>
+
+<style scoped>
+
+</style>

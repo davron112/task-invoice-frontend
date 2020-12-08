@@ -9,6 +9,7 @@ export default {
   ],
   payments: [],
   activePopup: false,
+  activeInvoice: {},
   invoices: [],
   users: [],
 }
