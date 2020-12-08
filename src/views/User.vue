@@ -1,6 +1,9 @@
 <template>
   <v-row>
-      <v-card v-show="!payed">
+      <div v-if="form.status === 'PAYED'">
+        This invoice has already been paid
+      </div>
+      <v-card v-else v-show="!payed">
         <v-card-title>
           <span class="headline">Pay to invoice</span>
         </v-card-title>
@@ -84,6 +87,7 @@ export default {
     return {
       payed: false,
       form: {
+        status: 'NEW',
         invoice_id: '',
         school_name: '',
         description: '',
